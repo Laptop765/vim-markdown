@@ -655,6 +655,8 @@ function! s:OpenUrlUnderCursor()
     let l:url = s:Markdown_GetUrlForPosition(line('.'), col('.'))
     if l:url != ''
         call s:VersionAwareNetrwBrowseX(l:url)
+    elseif exists('*vimwiki#vars#get_bufferlocal') && vimwiki#vars#get_bufferlocal('wiki_nr') != -1 
+        call vimwiki#base#follow_link('e')
     else
         echomsg 'The cursor is not on a link.'
     endif
